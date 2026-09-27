@@ -1,15 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "./AuthProvider";
 import { LoginModal } from "./LoginModal";
 
+function isAdminOnlyPath(pathname: string): boolean {
+  return (
+    pathname === "/add" ||
+    pathname.startsWith("/add/") ||
+    /\/movies\/[^/]+\/edit\/?$/.test(pathname)
+  );
+}
+
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { admin, loading, logout } = useAuth();
   const [loginOpen, setLoginOpen] = useState(false);
+
+  async function handleLogout() {
+    await logout();
+    if (isAdminOnlyPath(pathname)) {
+      router.replace("/");
+    }
+    router.refresh();
+  }
 
   const links = [
     { href: "/", label: "Browse" },
@@ -49,7 +66,7 @@ export function Navbar() {
               (admin ? (
                 <button
                   type="button"
-                  onClick={() => void logout()}
+                  onClick={() => void handleLogout()}
                   className="rounded border border-white/20 px-3 py-1.5 text-xs tracking-wider text-white transition hover:bg-white/10"
                 >
                   Logout
