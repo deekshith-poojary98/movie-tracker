@@ -30,5 +30,13 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "scripts/fix-*.ts",
+    "scripts/check-*.ts",
+    "scripts/debug-*.ts",
+    "scripts/rename-fix.ts",
+    "scripts/reseed-*.ts",
+    "scripts/title-case-movies.ts"
+  ]
 }
