@@ -108,6 +108,28 @@ body {
   animation: hero-ken 12s ease-out forwards;
 }
 
+@keyframes poster-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.poster-skeleton {
+  background: linear-gradient(
+    110deg,
+    #1a1a1f 0%,
+    #1a1a1f 35%,
+    #2a2a32 50%,
+    #1a1a1f 65%,
+    #1a1a1f 100%
+  );
+  background-size: 200% 100%;
+  animation: poster-shimmer 1.4s ease-in-out infinite;
+}
+
 @keyframes dot-pulse {
   0%,
   80%,
